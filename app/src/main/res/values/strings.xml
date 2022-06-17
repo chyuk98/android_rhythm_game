@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">rhythmgame</string>
+    
+    <string name="main_title_st">리듬게임</string>
+    <string name="go_score_st">점수판</string>
+    <string name="go_game_st">게임시작</string>
+
+    <string name="score_title_st">점수판</string>
+    <string name="score_score01_st">1.</string>
+    <string name="score_score02_st">2.</string>
+    <string name="score_score03_st">3.</string>
+    <string name="score_score04_st">4.</string>
+    <string name="score_score05_st">5.</string>
+    <string name="score_score06_st">6.</string>
+    <string name="score_score07_st">7.</string>
+    <string name="score_score08_st">8.</string>
+    <string name="score_score09_st">9.</string>
+    <string name="score_score10_st">10.</string>
+    <string name="go_main_score_st">메인화면</string>
+
+    <string name="game_time_st">시간</string>
+    <string name="game_score_st">점수</string>
+    <string name="game_combo_st">콤보</string>
+    <string name="go_main_game_st">메인화면</string>
+
+</resources>
