@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
+
     // timer (task 관리용)
     Timer t = new Timer();
     
@@ -33,6 +35,9 @@ public class GameActivity extends AppCompatActivity {
     TextView view_gametime;
     TextView view_gamescore;
     TextView view_gamecombo;
+    public ImageView view_img[] = new ImageView[9];
+    // Layout 중 환경설정으로 바뀔수 있는 image-mapping value
+    public int image_R_ID[]  = new int[9];
 
 
     // LED
@@ -50,19 +55,24 @@ public class GameActivity extends AppCompatActivity {
     public int gamescore;
 
     // Push Button
-    public int button_value[] = {1, 2, 4, 8, 16, 32, 64, 128, 256};
+    public int button_fixed[] = {1, 2, 4, 8, 16, 32, 64, 128, 256}; //: 버튼들이 가지고 있는 고정 값
     public TextView img_1;
-    long curt ;
-    int check;
-    int button;
-    class but1_1 extends TimerTask {
+    int push_check; // : push button이 루틴중에 한번이라도 눌리면 체크
+    int push_store; // : push button의 값을 루틴중에만 저장
+    class But_task1 extends TimerTask {
+        public int task_button_value;
+        public But_task1(int temp)
+        {
+            task_button_value = temp;
+        }
 
         public void run(){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     img_1.setText(""); //  암것도 안나오게
-                    if (button != 0 && button == 1){
+                    view_img[task_button_value].setImageResource(R.drawable.black);
+                    if (push_store != 0 && push_store == button_fixed[task_button_value]){
                         img_1.setText("miss");// miss 이미지
                         switch_fail();
                     }
@@ -70,14 +80,21 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
-    class but1_2 extends TimerTask {
+    class But_task2 extends TimerTask {
+        public int task_button_value;
+        public But_task2(int temp)
+        {
+            task_button_value = temp;
+        }
+
         public void run(){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (check !=1) {
+                    view_img[task_button_value].setImageResource(R.drawable.red);
+                    if (push_check !=1) {
                         img_1.setText("bad");
-                        if (button != 0 && button == 1) {
+                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_1.setText("miss");
                             switch_success();
                         }
@@ -86,14 +103,21 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
-    class but1_3 extends TimerTask {
+    class But_task3 extends TimerTask {
+        public int task_button_value;
+        public But_task3(int temp)
+        {
+            task_button_value = temp;
+        }
+
         public void run() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (check != 1) {
+                    view_img[task_button_value].setImageResource(R.drawable.yellow);
+                    if (push_check != 1) {
                         img_1.setText("good");//img = perfect
-                        if (button != 0 && button == 1) {
+                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_1.setText("bad check");//  3x3 화면에 5번 픽셀에 2번 이미지
                             switch_success();
                         }
@@ -102,14 +126,21 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
-    class but1_4 extends TimerTask {
+    class But_task4 extends TimerTask {
+        public int task_button_value;
+        public But_task4(int temp)
+        {
+            task_button_value = temp;
+        }
+
         public void run() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (check != 1) {
+                    view_img[task_button_value].setImageResource(R.drawable.green);
+                    if (push_check != 1) {
                         img_1.setText("perfect");
-                        if (button != 0 && button == 1) {
+                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_1.setText("good check");//3x3 화면에 5번 픽셀에 3번 이미지
                             switch_success();
                         }
@@ -118,20 +149,28 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
-    class but1_5 extends TimerTask {
+    class But_task5 extends TimerTask {
+        public int task_button_value;
+        public But_task5(int temp)
+        {
+            task_button_value = temp;
+        }
+
         public void run() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (check != 1) {
+                    view_img[task_button_value].setImageResource(R.drawable.black);
+                    if (push_check != 1) {
                         img_1.setText("miss");
-                        if (button != 0) {
+                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_1.setText("perfect check");// 화면에 5번 픽셀에 4번 이미지
                             switch_success();
                         }
 
                     }
-                    check = 0;
+                    push_store = 0;
+                    push_check = 0;
                 }
             });
         }
@@ -164,9 +203,25 @@ public class GameActivity extends AppCompatActivity {
         view_gametime = (TextView) findViewById(R.id.game_time);
         view_gamescore = (TextView) findViewById(R.id.game_score);
         view_gamecombo = (TextView) findViewById(R.id.game_combo);
+        {
+            image_R_ID[0] = R.id.img_1;
+            image_R_ID[1] = R.id.img_2;
+            image_R_ID[2] = R.id.img_3;
+            image_R_ID[3] = R.id.img_4;
+            image_R_ID[4] = R.id.img_5;
+            image_R_ID[5] = R.id.img_6;
+            image_R_ID[6] = R.id.img_7;
+            image_R_ID[7] = R.id.img_8;
+            image_R_ID[8] = R.id.img_9;
+        }
+        for(int i = 0; i < 9; i++)
+        {
+            view_img[i] = (ImageView)findViewById(image_R_ID[i]);
+        }
+
 
         img_1 = (TextView) findViewById(R.id.t1);
-        check = 0;
+        push_check = 0;
 
         view_gametime.setText("00:00");
         view_gamescore.setText("0");
@@ -217,10 +272,10 @@ public class GameActivity extends AppCompatActivity {
 
                         if(value!=-1)
                             value = ReceivePushSwitchValue();
-                            if(button == 0) {
-                                button = value;
+                            if(push_store == 0) {
+                                push_store = value;
                             }
-                            System.out.println(button);
+                            System.out.println(push_store);
 
                         if(value!=-1)
                             DeviceClose();
@@ -286,26 +341,43 @@ public class GameActivity extends AppCompatActivity {
 
     public void game_start()
     {
-        TimerTask task1 = new but1_1();
-        TimerTask task2 = new but1_2();
-        TimerTask task3 = new but1_3();
-        TimerTask task4 = new but1_4();
-        TimerTask task5 = new but1_5();
+        game_mapping(7, 3000, 1000);
+        game_mapping(8, 10000, 333);
+        game_mapping(9, 17000, 500);
 
 
-        g.schedule(task1,6000);
-        g.schedule(task2,7000);
-        g.schedule(task3,8000);
-        g.schedule(task4,9000);
-        g.schedule(task5,10000);
+    }
 
+    public int game_mapping(int quest_button, long delay_time, long interval_time)
+    {
+        if(quest_button > 9 || quest_button < 1)
+        {
+            return 0; // quest_button이 9초과 1미만으로 오류 값
+        }
+        quest_button--;
+
+
+        TimerTask task1 = new But_task1(quest_button);
+        TimerTask task2 = new But_task2(quest_button);
+        TimerTask task3 = new But_task3(quest_button);
+        TimerTask task4 = new But_task4(quest_button);
+        TimerTask task5 = new But_task5(quest_button);
+
+
+        g.schedule(task1, delay_time);
+        g.schedule(task2, delay_time + interval_time);
+        g.schedule(task3, delay_time + interval_time * 2);
+        g.schedule(task4, delay_time + interval_time * 3);
+        g.schedule(task5, delay_time + interval_time * 4);
+
+        return 0;
     }
 
 
     public void switch_success()
     {
         /** score, combo 계산 **/
-        check = 1;
+        push_check = 1;
 
         gamecombo++;
         if(gamecombo >= 50)
@@ -335,7 +407,7 @@ public class GameActivity extends AppCompatActivity {
     public void switch_fail()
     {
         /** score, combo 계산 **/
-        check = 1;
+        push_check = 1;
 
         gamecombo = 0;
         dot_combo = 0;
