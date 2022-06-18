@@ -3,6 +3,7 @@ package org.techtown.rhythmgame;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,6 +39,8 @@ public class GameActivity extends AppCompatActivity {
     public ImageView view_img[] = new ImageView[9];
     // Layout 중 환경설정으로 바뀔수 있는 image-mapping value
     public int image_R_ID[]  = new int[9];
+    // 채점 관련 img_view
+    public ImageView img_grade;
 
 
     // LED
@@ -56,7 +59,6 @@ public class GameActivity extends AppCompatActivity {
 
     // Push Button
     public int button_fixed[] = {1, 2, 4, 8, 16, 32, 64, 128, 256}; //: 버튼들이 가지고 있는 고정 값
-    public TextView img_1;
     int push_check; // : push button이 루틴중에 한번이라도 눌리면 체크
     int push_store; // : push button의 값을 루틴중에만 저장
     class But_task1 extends TimerTask {
@@ -70,10 +72,11 @@ public class GameActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    img_1.setText(""); //  암것도 안나오게
+                    img_grade.setVisibility(View.INVISIBLE);
                     view_img[task_button_value].setImageResource(R.drawable.black);
                     if (push_store != 0 && push_store == button_fixed[task_button_value]){
-                        img_1.setText("miss");// miss 이미지
+                        img_grade.setVisibility(View.VISIBLE);
+                        img_grade.setImageResource(R.drawable.miss_img);
                         switch_fail();
                     }
                 }
@@ -93,10 +96,11 @@ public class GameActivity extends AppCompatActivity {
                 public void run() {
                     view_img[task_button_value].setImageResource(R.drawable.red);
                     if (push_check !=1) {
-                        img_1.setText("bad");
-                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
-                            img_1.setText("miss");
-                            switch_success();
+                        if (push_store != 0) {
+
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.miss_img);
+                            switch_fail();
                         }
                     }
                 }
@@ -116,10 +120,11 @@ public class GameActivity extends AppCompatActivity {
                 public void run() {
                     view_img[task_button_value].setImageResource(R.drawable.yellow);
                     if (push_check != 1) {
-                        img_1.setText("good");//img = perfect
-                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
-                            img_1.setText("bad check");//  3x3 화면에 5번 픽셀에 2번 이미지
-                            switch_success();
+
+                        if (push_store != 0) {
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.miss_img);
+                            switch_fail();
                         }
                     }
                 }
@@ -139,9 +144,9 @@ public class GameActivity extends AppCompatActivity {
                 public void run() {
                     view_img[task_button_value].setImageResource(R.drawable.green);
                     if (push_check != 1) {
-                        img_1.setText("perfect");
                         if (push_store != 0 && push_store == button_fixed[task_button_value]) {
-                            img_1.setText("good check");//3x3 화면에 5번 픽셀에 3번 이미지
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.good_img);
                             switch_success();
                         }
                     }
@@ -155,19 +160,21 @@ public class GameActivity extends AppCompatActivity {
         {
             task_button_value = temp;
         }
-
         public void run() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    img_grade.setVisibility(View.VISIBLE);
                     view_img[task_button_value].setImageResource(R.drawable.black);
                     if (push_check != 1) {
-                        img_1.setText("miss");
                         if (push_store != 0 && push_store == button_fixed[task_button_value]) {
-                            img_1.setText("perfect check");// 화면에 5번 픽셀에 4번 이미지
+                            img_grade.setImageResource(R.drawable.perfect_img);
                             switch_success();
                         }
-
+                    }
+                    else if(push_store == 0)
+                    {
+                        img_grade.setImageResource(R.drawable.miss_img);
                     }
                     push_store = 0;
                     push_check = 0;
@@ -192,6 +199,7 @@ public class GameActivity extends AppCompatActivity {
         System.loadLibrary("fpga-fnd-jni");
     }
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +228,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
-        img_1 = (TextView) findViewById(R.id.t1);
+        img_grade = (ImageView) findViewById(R.id.img_grade);
         push_check = 0;
 
         view_gametime.setText("00:00");

@@ -24,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_marginLeft="5dp"
@@ -45,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score01_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_01"
@@ -54,7 +55,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -68,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score02_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_02"
@@ -77,7 +78,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score03_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_03"
@@ -100,7 +101,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -114,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score04_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_04"
@@ -123,7 +124,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -137,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score05_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_05"
@@ -146,7 +147,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
         </LinearLayout>
 
@@ -168,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score06_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_06"
@@ -177,7 +178,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -191,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score07_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_07"
@@ -200,7 +201,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -214,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score08_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_08"
@@ -223,7 +224,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -237,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score09_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_09"
@@ -246,7 +247,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -260,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/score_score10_st"
                     android:textColor="#C39217"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_10"
@@ -269,7 +270,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="30sp"></TextView>
+                    android:textSize="34sp"></TextView>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
