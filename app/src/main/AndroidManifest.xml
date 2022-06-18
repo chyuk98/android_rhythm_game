@@ -11,12 +11,15 @@
         android:theme="@style/Theme.Rhythmgame">
         <activity
             android:name=".ScoreActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".GameActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

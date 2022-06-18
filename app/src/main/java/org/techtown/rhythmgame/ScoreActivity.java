@@ -18,8 +18,7 @@ public class ScoreActivity extends AppCompatActivity {
         score_to_main_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_score_to_main = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent_score_to_main);
+                finish();
             }
         });
     }

@@ -15,13 +15,46 @@ project("rhythmgame")
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-        rhythmgame
-
+        fpga-led-jni
         # Sets the library as a shared library.
         SHARED
-
         # Provides a relative path to your source file(s).
-        rhythmgame.cpp)
+        fpga-led-jni.cpp)
+
+add_library( # Sets the name of the library.
+        fpga-dot-jni
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        fpga-dot-jni.cpp)
+
+add_library( # Sets the name of the library.
+        fpga-step-motor-jni
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        fpga-step-motor-jni.cpp)
+
+add_library( # Sets the name of the library.
+        fpga-text-lcd-jni
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        fpga-text-lcd-jni.cpp)
+
+add_library( # Sets the name of the library.
+        fpga-push-switch-jni
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        fpga-push-switch-jni.cpp)
+
+add_library( # Sets the name of the library.
+        fpga-fnd-jni
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        fpga-fnd-jni.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -41,8 +74,37 @@ find_library( # Sets the name of the path variable.
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-        rhythmgame
-
+        fpga-led-jni
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib})
+        ${log-lib} )
+
+target_link_libraries( # Specifies the target library.
+        fpga-dot-jni
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib} )
+
+target_link_libraries( # Specifies the target library.
+        fpga-step-motor-jni
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib} )
+
+target_link_libraries( # Specifies the target library.
+        fpga-text-lcd-jni
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib} )
+
+target_link_libraries( # Specifies the target library.
+        fpga-push-switch-jni
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib} )
+
+target_link_libraries( # Specifies the target library.
+        fpga-fnd-jni
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib} )

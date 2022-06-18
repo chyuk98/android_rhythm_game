@@ -11,9 +11,7 @@ import android.widget.TextView;
 import org.techtown.rhythmgame.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    static {
-        System.loadLibrary("rhythmgame");
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +36,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * A native method that is implemented by the 'rythmgame' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
 }
