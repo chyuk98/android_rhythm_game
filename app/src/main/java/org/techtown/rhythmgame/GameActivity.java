@@ -397,9 +397,19 @@ public class GameActivity extends AppCompatActivity {
         if(dot_combo>8)
             dot_combo = 0;
 
+
+        String g_combo = Integer.toString(gamecombo);
+
+        if (g_combo.length()==1)
+            g_combo="000"+g_combo;
+        else if (g_combo.length()==2)
+            g_combo="00"+g_combo;
+        else if (g_combo.length()==3)
+            g_combo="0"+g_combo;
+
         ReceiveDotValue(dot_combo);
         ReceiveTextLcdValue(Integer.toString(gamescore), " ");
-        ReceiveFndValue(Integer.toString(gamecombo));
+        ReceiveFndValue(g_combo);
         view_gamescore.setText(Integer.toString(gamescore));
         view_gamecombo.setText(Integer.toString(gamecombo));
     }

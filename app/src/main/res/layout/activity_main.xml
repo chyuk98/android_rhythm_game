@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        android:background="@drawable/shape_title"
         android:gravity="center"
         android:text="@string/main_title_st"
-        android:textColor="#61380B"
+        android:textColor="#04DEF8"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:background="@drawable/shape_title">
-    </TextView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.175"></TextView>
+
     <Button
         android:id="@+id/main_to_game_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:background="@drawable/shape_title"
         android:gravity="center"
-        android:layout_marginTop="20dp"
         android:text="@string/go_game_st"
         android:textSize="20sp"
-        android:textStyle="bold">
-    </Button>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498"></Button>
 
     <Button
         android:id="@+id/main_to_score_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@drawable/shape_title"
         android:gravity="center"
-        android:layout_marginTop="10dp"
         android:text="@string/go_score_st"
         android:textSize="20sp"
-        android:textStyle="bold">
-    </Button>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666"></Button>
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
