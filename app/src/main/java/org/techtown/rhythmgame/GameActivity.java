@@ -8,6 +8,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -27,6 +29,10 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
+    // DB
+    SQLiteDatabase database;
+    public String dbName;
+    public String tableName;
 
     // timer (task 관리용)
     Timer t = new Timer();
@@ -36,11 +42,14 @@ public class GameActivity extends AppCompatActivity {
     TextView view_gametime;
     TextView view_gamescore;
     TextView view_gamecombo;
+
+    public String game_name;
     public ImageView view_img[] = new ImageView[9];
     // Layout 중 환경설정으로 바뀔수 있는 image-mapping value
     public int image_R_ID[]  = new int[9];
     // 채점 관련 img_view
     public ImageView img_grade;
+    Dialog resultDialog;
 
 
     // LED
@@ -211,6 +220,12 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        /** 충 DB **/
+        dbName = "score_board";
+        tableName = "person";
+        createDatabase();
+        createTable();
+
         /********** Layout setting **********
          * 시간, 점수, 콤보 화면 초기화
          *********************************/
@@ -234,7 +249,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
-        img_grade = (ImageView) findViewById(R.id.img_grade);
+        img_grade = (ImageView) findViewById(R.id.image_score);
         push_check = 0;
 
         view_gametime.setText("00:00");
@@ -254,6 +269,10 @@ public class GameActivity extends AppCompatActivity {
         ReceiveTextLcdValue(Integer.toString(gamescore), " ");
         gamecombo = 0;
         ReceiveFndValue(Integer.toString(gamecombo));
+
+        resultDialog =new Dialog(GameActivity.this);
+        resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        resultDialog.setContentView(R.layout.game_result);
 
         showNameDialog();
 
@@ -320,7 +339,8 @@ public class GameActivity extends AppCompatActivity {
         adb.setNeutralButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(GameActivity.this, "NAME : " + name.getText().toString(), Toast.LENGTH_LONG).show();
+                game_name = name.getText().toString();
+                Toast.makeText(GameActivity.this, "NAME : " + game_name, Toast.LENGTH_LONG).show();
                 showCountDialog();
             }
         }).show();
@@ -331,6 +351,7 @@ public class GameActivity extends AppCompatActivity {
         count_Dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         count_Dialog.setContentView(R.layout.game_count);
         count_Dialog.setCanceledOnTouchOutside(false);
+        count_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         final TextView countNum = (TextView) count_Dialog.findViewById(R.id.count_num);
 
@@ -350,8 +371,28 @@ public class GameActivity extends AppCompatActivity {
         };
         count_Dialog.show();
         cntTimer.start();
-
     }
+
+    private void showResultDialog(){
+        resultDialog.show();
+
+        resultDialog.findViewById(R.id.result_again_bt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resultDialog.dismiss();
+                finish();
+                // 추가 필요 : activity 재시작이라서 dialog도 같이 뜸
+                startActivity(new Intent(GameActivity.this, GameActivity.class));
+            }
+        });
+        resultDialog.findViewById(R.id.result_go_main_bt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
 
     public void game_start()
     {
@@ -370,8 +411,6 @@ public class GameActivity extends AppCompatActivity {
         game_mapping(9, 55900, 857);
         game_mapping(5, 60200, 857);
         game_mapping(1, 64500, 857);
-
-
 
     }
 
@@ -398,6 +437,21 @@ public class GameActivity extends AppCompatActivity {
         g.schedule(task5, delay_time + interval_time * 4);
 
         return 0;
+    }
+
+
+    public void game_over(){
+        t.cancel();
+        g.cancel();
+
+        // sqlite db에 이름 점수 정보 추가
+        insertRecord();
+
+        showResultDialog();
+
+        // 추가 필요: wrong 이외의 부분 모두 초기화 필요
+        led_wrong = 0;
+        
     }
 
 
@@ -449,8 +503,12 @@ public class GameActivity extends AppCompatActivity {
         gamecombo = 0;
         dot_combo = 0;
         led_wrong++;
-        if(led_wrong > 8)
+
+        if(led_wrong > 7){
             led_wrong = 8;
+/******************게임 오버****************/
+            game_over();
+        }
 
         ReceiveLedValue(led_wrong);
         ReceiveDotValue(dot_combo);
@@ -458,6 +516,32 @@ public class GameActivity extends AppCompatActivity {
         view_gamecombo.setText(Integer.toString(gamecombo));
     }
 
+    public void createDatabase()
+    {
+        database= openOrCreateDatabase(dbName, MODE_PRIVATE, null);
+    }
+
+    public void createTable()
+    {
+        if(database == null)
+        {
+            return;
+        }
+
+        String sql = "create table if not exists " + tableName + "(_id integer PRIMARY KEY autoincrement, name text, score integer)";
+        database.execSQL(sql);
+    }
+
+    public void insertRecord()
+    {
+        if(database == null)
+        {
+            return;
+        }
+
+        String sql = "insert into " + tableName + "(name, score) values ('" + game_name + "', " + gamescore + ")";
+        database.execSQL(sql);
+    }
 
 
     /**

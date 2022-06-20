@@ -15,6 +15,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="4"
+        android:textColor="#F44336"
         android:textSize="100sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
