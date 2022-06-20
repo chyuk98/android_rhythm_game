@@ -381,7 +381,6 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 resultDialog.dismiss();
                 finish();
-                // 추가 필요 : activity 재시작이라서 dialog도 같이 뜸
                 startActivity(new Intent(GameActivity.this, GameActivity.class));
             }
         });
@@ -411,6 +410,8 @@ public class GameActivity extends AppCompatActivity {
         game_mapping(9, 55900, 857);
         game_mapping(5, 60200, 857);
         game_mapping(1, 64500, 857);
+
+        game_over();
 
     }
 
@@ -448,9 +449,6 @@ public class GameActivity extends AppCompatActivity {
         insertRecord();
 
         showResultDialog();
-
-        // 추가 필요: wrong 이외의 부분 모두 초기화 필요
-        led_wrong = 0;
         
     }
 
@@ -515,6 +513,8 @@ public class GameActivity extends AppCompatActivity {
         ReceiveFndValue(Integer.toString(gamecombo));
         view_gamecombo.setText(Integer.toString(gamecombo));
     }
+
+
 
     public void createDatabase()
     {
