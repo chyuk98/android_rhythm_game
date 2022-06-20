@@ -3,6 +3,7 @@ package org.techtown.rhythmgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button main_to_game_button =findViewById(R.id.main_to_game_bt);
+
+        Button main_to_game_button = findViewById(R.id.main_to_game_bt);
         main_to_game_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        Button main_to_score_button =findViewById(R.id.main_to_score_bt);
+        Button main_to_score_button = findViewById(R.id.main_to_score_bt);
         main_to_score_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,5 +37,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

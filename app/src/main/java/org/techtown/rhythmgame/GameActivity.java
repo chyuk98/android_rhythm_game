@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
                 public void run() {
                     img_grade.setVisibility(View.INVISIBLE);
                     view_img[task_button_value].setImageResource(R.drawable.black);
-                    if (push_store != 0 && push_store == button_fixed[task_button_value]){
+                    if (push_store != 0){
                         img_grade.setVisibility(View.VISIBLE);
                         img_grade.setImageResource(R.drawable.miss_img);
                         switch_fail();
@@ -171,10 +171,16 @@ public class GameActivity extends AppCompatActivity {
                             img_grade.setImageResource(R.drawable.perfect_img);
                             switch_success();
                         }
+                        else
+                        {
+                            img_grade.setImageResource(R.drawable.miss_img);
+                            switch_fail();
+                        }
                     }
                     else if(push_store == 0)
                     {
                         img_grade.setImageResource(R.drawable.miss_img);
+                        switch_fail();
                     }
                     push_store = 0;
                     push_check = 0;
@@ -349,9 +355,22 @@ public class GameActivity extends AppCompatActivity {
 
     public void game_start()
     {
-        game_mapping(7, 3000, 1000);
-        game_mapping(8, 10000, 333);
-        game_mapping(9, 17000, 500);
+        game_mapping(7, 4300, 857);
+        game_mapping(8, 8600, 857);
+        game_mapping(9, 12900, 857);
+        game_mapping(1, 17200, 857);
+        game_mapping(3, 21500, 857);
+        game_mapping(2, 25800, 857);
+        game_mapping(4, 30100, 857);
+        game_mapping(3, 34400, 857);
+        game_mapping(4, 38700, 857);
+        game_mapping(7, 43000, 857);
+        game_mapping(5, 47300, 857);
+        game_mapping(3, 51600, 857);
+        game_mapping(9, 55900, 857);
+        game_mapping(5, 60200, 857);
+        game_mapping(1, 64500, 857);
+
 
 
     }
