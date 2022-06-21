@@ -15,10 +15,11 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_title"
+        android:fontFamily="@font/neodgm"
         android:gravity="center"
         android:text="@string/score_title_st"
         android:textColor="#73532F"
-        android:textSize="40sp"
+        android:textSize="60sp"
         android:textStyle="bold"></TextView>
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,18 +45,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score01_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -67,18 +70,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score02_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -90,18 +95,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score03_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -113,18 +120,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score04_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -136,18 +145,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score05_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
         </LinearLayout>
 
@@ -167,18 +178,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score06_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_06"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -190,18 +203,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score07_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_07"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -213,18 +228,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score08_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -236,18 +253,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score09_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_09"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -259,18 +278,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/neodgm"
                     android:text="@string/score_score10_st"
                     android:textColor="#C39217"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
 
                 <TextView
                     android:id="@+id/score_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/neodgm"
                     android:text="10"
                     android:textColor="#B88623"
-                    android:textSize="34sp"></TextView>
+                    android:textSize="48sp"></TextView>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -282,6 +303,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_title"
+        android:fontFamily="@font/neodgm"
         android:gravity="center"
         android:text="@string/go_main_score_st"
         android:textColor="#F6F5F8"

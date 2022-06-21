@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -28,6 +29,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
+
+    // 난이도
+    public int difficulty;
+    public long interval_time;
 
     // DB
     SQLiteDatabase database;
@@ -40,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
     
     // Layout
     TextView view_gametime;
+    public long settime; // real 타이머 용
     TextView view_gamescore;
     TextView view_gamecombo;
 
@@ -60,8 +66,12 @@ public class GameActivity extends AppCompatActivity {
 
     // Step Motor
     public int action;
-    public int direction;
+    public int direction = 0;   // direction : 0 (right)
     public int speed = 10;      // speed : 10 고정
+    public long game_time = 0;   // 게임 총 시간
+    public long time_to_spin;    // 모터 동작 주기 (전체 시간에서 쪼갤 각도 개수 만큼 나눈 값)
+    public long delay_1step;     // 1바퀴를 도는 데 필요한 총 딜레이 중 쪼갤 개수 만큼 나눈 값
+
 
     // LCD
     public int gamescore;
@@ -82,12 +92,9 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     img_grade.setVisibility(View.INVISIBLE);
+                    view_img[task_button_value].setVisibility(View.VISIBLE);
                     view_img[task_button_value].setImageResource(R.drawable.black);
-                    if (push_store != 0){
-                        img_grade.setVisibility(View.VISIBLE);
-                        img_grade.setImageResource(R.drawable.miss_img);
-                        switch_fail();
-                    }
+
                 }
             });
         }
@@ -156,7 +163,7 @@ public class GameActivity extends AppCompatActivity {
                         if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_grade.setVisibility(View.VISIBLE);
                             img_grade.setImageResource(R.drawable.good_img);
-                            switch_success();
+                            switch_success(0);
                         }
                     }
                 }
@@ -178,7 +185,7 @@ public class GameActivity extends AppCompatActivity {
                     if (push_check != 1) {
                         if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_grade.setImageResource(R.drawable.perfect_img);
-                            switch_success();
+                            switch_success(1);
                         }
                         else
                         {
@@ -193,6 +200,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     push_store = 0;
                     push_check = 0;
+                    view_img[task_button_value].setVisibility(View.INVISIBLE);
                 }
             });
         }
@@ -220,7 +228,13 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        /** 충 DB **/
+        /** 난이도 **/
+        Intent gameactivity_Intent = getIntent();
+        difficulty = gameactivity_Intent.getIntExtra("difficulty", 0);
+        System.out.println(difficulty);
+        interval_time = 257 + (2 - difficulty) * 200;
+        
+        /** DB **/
         dbName = "score_board";
         tableName = "person";
         createDatabase();
@@ -246,6 +260,7 @@ public class GameActivity extends AppCompatActivity {
         for(int i = 0; i < 9; i++)
         {
             view_img[i] = (ImageView)findViewById(image_R_ID[i]);
+            view_img[i].setVisibility(View.INVISIBLE);
         }
 
 
@@ -269,10 +284,6 @@ public class GameActivity extends AppCompatActivity {
         ReceiveTextLcdValue(Integer.toString(gamescore), " ");
         gamecombo = 0;
         ReceiveFndValue(Integer.toString(gamecombo));
-
-        resultDialog =new Dialog(GameActivity.this);
-        resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        resultDialog.setContentView(R.layout.game_result);
 
         showNameDialog();
 
@@ -308,12 +319,18 @@ public class GameActivity extends AppCompatActivity {
                             if(push_store == 0) {
                                 push_store = value;
                             }
-                            System.out.println(push_store);
+                            //System.out.println(push_store);
 
                         if(value!=-1)
                             DeviceClose();
 
-
+                        /** 타이머 측정 루트 **/
+                        long curtime = System.currentTimeMillis() - settime;
+                        curtime = curtime / 1000;
+                        if(curtime / 60 > 0)
+                            view_gametime.setText("0" +Long.toString(curtime /60 % 60) + " : " + Long.toString(curtime % 60));
+                        else
+                            view_gametime.setText("00 : " + Long.toString(curtime % 60));
                     }
                 }, 100);
             }
@@ -326,6 +343,32 @@ public class GameActivity extends AppCompatActivity {
         
     }
 
+
+    class Motor_task extends TimerTask {
+        public int motor_action;
+        public Motor_task(int temp) {
+            motor_action = temp;
+        }
+
+        public void run(){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SetMotorState(motor_action, 0, 10);
+                }
+            });
+        }
+    }
+
+    public void spin_motor_1_step(long step_time, long delay_1step)
+    {
+        TimerTask task_on = new Motor_task(1);  // start
+        TimerTask task_off = new Motor_task(0); // stop
+
+        g.schedule(task_on, step_time);
+        g.schedule(task_off, step_time + delay_1step);
+    }
+
     private void showNameDialog(){
         LayoutInflater vi =(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout loginLayout = (LinearLayout)vi.inflate(R.layout.game_login, null);
@@ -333,7 +376,7 @@ public class GameActivity extends AppCompatActivity {
         final EditText name = (EditText) loginLayout.findViewById(R.id.name);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
-
+        adb.setCancelable(false);
         adb.setTitle("로그인");
         adb.setView(loginLayout);
         adb.setNeutralButton("확인", new DialogInterface.OnClickListener() {
@@ -365,6 +408,7 @@ public class GameActivity extends AppCompatActivity {
             public void onFinish() {
                 count_Dialog.dismiss();
 /******************게임 시작****************/
+                settime = System.currentTimeMillis();
                 game_start();
                 //changeImage();
             }
@@ -373,7 +417,19 @@ public class GameActivity extends AppCompatActivity {
         cntTimer.start();
     }
 
-    private void showResultDialog(){
+    public void showResultDialog(int result_state){
+
+//        resultDialog.setTitle(game_name + " : " + Integer.toString(gamescore));
+
+
+
+        resultDialog = new Dialog(GameActivity.this);
+        resultDialog.setCancelable(false);
+        //resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        resultDialog.setContentView(R.layout.game_result);
+
+        resultDialog.setTitle("  " + game_name + "  :  " + Integer.toString(gamescore) + " 점 ");
+
         resultDialog.show();
 
         resultDialog.findViewById(R.id.result_again_bt).setOnClickListener(new View.OnClickListener() {
@@ -395,27 +451,34 @@ public class GameActivity extends AppCompatActivity {
 
     public void game_start()
     {
-        game_mapping(7, 4300, 857);
-        game_mapping(8, 8600, 857);
-        game_mapping(9, 12900, 857);
-        game_mapping(1, 17200, 857);
-        game_mapping(3, 21500, 857);
-        game_mapping(2, 25800, 857);
-        game_mapping(4, 30100, 857);
-        game_mapping(3, 34400, 857);
-        game_mapping(4, 38700, 857);
-        game_mapping(7, 43000, 857);
-        game_mapping(5, 47300, 857);
-        game_mapping(3, 51600, 857);
-        game_mapping(9, 55900, 857);
-        game_mapping(5, 60200, 857);
-        game_mapping(1, 64500, 857);
+        game_mapping(7, 4300);
+        game_mapping(8, 8600);
+        game_mapping(9, 12900);
+        game_mapping(1, 17200);
+        game_mapping(3, 21500);
+        game_mapping(2, 25800);
+        game_mapping(4, 30100);
+        game_mapping(3, 34400);
+        game_mapping(4, 38700);
+        game_mapping(7, 43000);
+        game_mapping(5, 47300);
+        game_mapping(3, 51600);
+        game_mapping(9, 55900);
+        game_mapping(5, 60200);
+        game_mapping(1, 64500);
 
-        game_over();
+        game_time = 64500 + (interval_time * 5);
+        time_to_spin = game_time / 12;
+        delay_1step = 720 / 12;
+
+        // 총 12번 동작
+        for(int i = 0; i < 12; i++){
+            spin_motor_1_step(time_to_spin*(i+1) + delay_1step*(i), delay_1step);
+        }
 
     }
 
-    public int game_mapping(int quest_button, long delay_time, long interval_time)
+    public int game_mapping(int quest_button, long delay_time)
     {
         if(quest_button > 9 || quest_button < 1)
         {
@@ -441,44 +504,50 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public void game_over(){
+
+    /**
+     * over_state 1 : game over
+     * over_state 0 : game clear
+     * **/
+    public void game_over(int over_state){
         t.cancel();
         g.cancel();
 
         // sqlite db에 이름 점수 정보 추가
         insertRecord();
 
-        showResultDialog();
+        showResultDialog(over_state);
         
     }
 
-
-    public void switch_success()
+    /**
+     * success_state 1 : perfect check
+     * success_state 0 : good check
+     * **/
+    public void switch_success(int success_state)
     {
-        /** score, combo 계산 **/
+        /** 점수 계산 알고리즘 **/
         push_check = 1;
 
-        gamecombo++;
-        if(gamecombo >= 50)
+        gamescore += gamecombo;
+        gamescore += difficulty;
+        if(success_state == 1)
         {
-            gamescore += 5;
-        }
-        else if(gamecombo >= 10)
-        {
-            gamescore += (gamecombo / 10);
+            gamescore += 10;
         }
         else
         {
-            gamescore++;
+            gamescore += 5;
         }
 
-        dot_combo++;
-        if(dot_combo>8)
-            dot_combo = 0;
+        if(gamecombo >= 10)
+        {
+            if(led_wrong > 0)
+                led_wrong--;
+        }
 
 
         String g_combo = Integer.toString(gamecombo);
-
         if (g_combo.length()==1)
             g_combo="000"+g_combo;
         else if (g_combo.length()==2)
@@ -491,11 +560,16 @@ public class GameActivity extends AppCompatActivity {
         ReceiveFndValue(g_combo);
         view_gamescore.setText(Integer.toString(gamescore));
         view_gamecombo.setText(Integer.toString(gamecombo));
+
+        gamecombo++;
+
+        if(dot_combo < 10)
+            dot_combo++;
     }
 
     public void switch_fail()
     {
-        /** score, combo 계산 **/
+        /** 점수 계산 알고리즘 **/
         push_check = 1;
 
         gamecombo = 0;
@@ -503,9 +577,8 @@ public class GameActivity extends AppCompatActivity {
         led_wrong++;
 
         if(led_wrong > 7){
-            led_wrong = 8;
 /******************게임 오버****************/
-            game_over();
+            game_over(0);
         }
 
         ReceiveLedValue(led_wrong);

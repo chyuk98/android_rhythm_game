@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/shape_title"
+        android:fontFamily="@font/neodgm"
         android:gravity="center"
         android:text="@string/main_title_st"
         android:textColor="#04DEF8"
@@ -32,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_title"
+        android:fontFamily="@font/neodgm"
         android:gravity="center"
         android:text="@string/go_game_st"
         android:textSize="20sp"
@@ -49,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/shape_title"
+        android:fontFamily="@font/neodgm"
         android:gravity="center"
         android:text="@string/go_score_st"
         android:textSize="20sp"
@@ -59,5 +62,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666"></Button>
+
+    <ImageButton
+        android:id="@+id/option_button"
+        android:layout_width="89dp"
+        android:layout_height="57dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/button_shape"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045"
+        app:srcCompat="@drawable/option_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

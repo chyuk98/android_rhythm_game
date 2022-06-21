@@ -15,6 +15,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="4"
+        android:fontFamily="@font/neodgm"
         android:textColor="#F44336"
         android:textSize="100sp"
         android:textStyle="bold"
