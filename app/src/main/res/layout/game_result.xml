@@ -18,7 +18,7 @@
             android:fontFamily="@font/neodgm"
             android:gravity="center"
             android:text="GAME"
-            android:textColor="#03A9F4"
+            android:textColor="#a82d35"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -28,8 +28,8 @@
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/neodgm"
             android:gravity="center"
-            android:text="CLEAR"
-            android:textColor="#03A9F4"
+            android:text="OVER"
+            android:textColor="#a82d35"
             android:textSize="30sp"
             android:textStyle="bold" />
 

@@ -45,7 +45,8 @@ public class GameActivity extends AppCompatActivity {
     
     // Layout
     TextView view_gametime;
-    public long settime; // real 타이머 용
+    public long settime = 0; // real 타이머 용
+    public long clrtime = 0;
     TextView view_gamescore;
     TextView view_gamecombo;
 
@@ -57,16 +58,13 @@ public class GameActivity extends AppCompatActivity {
     public ImageView img_grade;
     Dialog resultDialog;
 
-
     // LED
     public int led_wrong;
 
     // DOT
-    public int dot_combo;
+    public int dot_combo = 0;
 
     // Step Motor
-    public int action;
-    public int direction = 0;   // direction : 0 (right)
     public int speed = 10;      // speed : 10 고정
     public long game_time = 0;   // 게임 총 시간
     public long time_to_spin;    // 모터 동작 주기 (전체 시간에서 쪼갤 각도 개수 만큼 나눈 값)
@@ -74,7 +72,8 @@ public class GameActivity extends AppCompatActivity {
 
 
     // LCD
-    public int gamescore;
+    public int gamescore = 0;
+    public String game_score_string;
 
     // Push Button
     public int button_fixed[] = {1, 2, 4, 8, 16, 32, 64, 128, 256}; //: 버튼들이 가지고 있는 고정 값
@@ -110,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    view_img[task_button_value].setImageResource(R.drawable.red);
+                    view_img[task_button_value].setImageResource(R.drawable.im1);
                     if (push_check !=1) {
                         if (push_store != 0) {
 
@@ -134,7 +133,7 @@ public class GameActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    view_img[task_button_value].setImageResource(R.drawable.yellow);
+                    view_img[task_button_value].setImageResource(R.drawable.im2);
                     if (push_check != 1) {
 
                         if (push_store != 0) {
@@ -158,7 +157,7 @@ public class GameActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    view_img[task_button_value].setImageResource(R.drawable.green);
+                    view_img[task_button_value].setImageResource(R.drawable.im3);
                     if (push_check != 1) {
                         if (push_store != 0 && push_store == button_fixed[task_button_value]) {
                             img_grade.setVisibility(View.VISIBLE);
@@ -170,9 +169,104 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
+
     class But_task5 extends TimerTask {
         public int task_button_value;
         public But_task5(int temp)
+        {
+            task_button_value = temp;
+        }
+
+        public void run(){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    view_img[task_button_value].setImageResource(R.drawable.im4);
+                    if (push_check !=1) {
+                        if (push_store != 0) {
+
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.good_img);
+                            switch_success(0);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    class But_task6 extends TimerTask {
+        public int task_button_value;
+        public But_task6(int temp)
+        {
+            task_button_value = temp;
+        }
+
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    view_img[task_button_value].setImageResource(R.drawable.im5);
+                    if (push_check != 1) {
+
+                        if (push_store != 0) {
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.good_img);
+                            switch_success(0);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    class But_task7 extends TimerTask {
+        public int task_button_value;
+        public But_task7(int temp)
+        {
+            task_button_value = temp;
+        }
+
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    view_img[task_button_value].setImageResource(R.drawable.im6);
+                    if (push_check != 1) {
+                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.perfect_img);
+                            switch_success(1);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    class But_task8 extends TimerTask {
+        public int task_button_value;
+        public But_task8(int temp)
+        {
+            task_button_value = temp;
+        }
+
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    view_img[task_button_value].setImageResource(R.drawable.im7);
+                    if (push_check != 1) {
+                        if (push_store != 0 && push_store == button_fixed[task_button_value]) {
+                            img_grade.setVisibility(View.VISIBLE);
+                            img_grade.setImageResource(R.drawable.perfect_img);
+                            switch_success(1);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    class But_task9 extends TimerTask {
+        public int task_button_value;
+        public But_task9(int temp)
         {
             task_button_value = temp;
         }
@@ -200,7 +294,6 @@ public class GameActivity extends AppCompatActivity {
                     }
                     push_store = 0;
                     push_check = 0;
-                    view_img[task_button_value].setVisibility(View.INVISIBLE);
                 }
             });
         }
@@ -210,7 +303,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     // FND
-    public int gamecombo;
+    public int gamecombo = 0;
 
     // Used to load the 'jni_test' library on application startup.
     static {
@@ -232,7 +325,7 @@ public class GameActivity extends AppCompatActivity {
         Intent gameactivity_Intent = getIntent();
         difficulty = gameactivity_Intent.getIntExtra("difficulty", 0);
         System.out.println(difficulty);
-        interval_time = 257 + (2 - difficulty) * 200;
+        interval_time = 275 + (2 - difficulty) * 100;
         
         /** DB **/
         dbName = "score_board";
@@ -260,11 +353,10 @@ public class GameActivity extends AppCompatActivity {
         for(int i = 0; i < 9; i++)
         {
             view_img[i] = (ImageView)findViewById(image_R_ID[i]);
-            view_img[i].setVisibility(View.INVISIBLE);
         }
 
-
         img_grade = (ImageView) findViewById(R.id.image_score);
+        img_grade.setVisibility(View.INVISIBLE);
         push_check = 0;
 
         view_gametime.setText("00:00");
@@ -281,7 +373,8 @@ public class GameActivity extends AppCompatActivity {
         dot_combo = 0;
         ReceiveDotValue(dot_combo);
         gamescore = 0;
-        ReceiveTextLcdValue(Integer.toString(gamescore), " ");
+        game_score_string = "Score : " + Integer.toString(gamescore);
+        ReceiveTextLcdValue(game_score_string, " ");
         gamecombo = 0;
         ReceiveFndValue(Integer.toString(gamecombo));
 
@@ -326,13 +419,26 @@ public class GameActivity extends AppCompatActivity {
 
                         /** 타이머 측정 루트 **/
                         long curtime = System.currentTimeMillis() - settime;
+                        System.out.println(curtime);
+                        if(clrtime != 0 && curtime > clrtime)
+                        {
+                            game_over(1);
+                        }
                         curtime = curtime / 1000;
-                        if(curtime / 60 > 0)
-                            view_gametime.setText("0" +Long.toString(curtime /60 % 60) + " : " + Long.toString(curtime % 60));
-                        else
-                            view_gametime.setText("00 : " + Long.toString(curtime % 60));
+                        if(curtime / 60 > 0) {
+                            view_gametime.setText("0" + Long.toString(curtime / 60 % 60) + " : " + Long.toString(curtime % 60));
+
+                        }
+                        else {
+                            if (curtime < 10) {
+                                view_gametime.setText("00 : 0" + Long.toString(curtime % 60));
+                            }
+                            else {
+                                view_gametime.setText("00 : " + Long.toString(curtime % 60));
+                            }
+                        }
                     }
-                }, 100);
+                }, 50);
             }
         };
 
@@ -425,8 +531,11 @@ public class GameActivity extends AppCompatActivity {
 
         resultDialog = new Dialog(GameActivity.this);
         resultDialog.setCancelable(false);
-        //resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        resultDialog.setContentView(R.layout.game_result);
+
+        if(result_state == 1)
+            resultDialog.setContentView(R.layout.game_clear);
+        else
+            resultDialog.setContentView(R.layout.game_result);
 
         resultDialog.setTitle("  " + game_name + "  :  " + Integer.toString(gamescore) + " 점 ");
 
@@ -451,8 +560,10 @@ public class GameActivity extends AppCompatActivity {
 
     public void game_start()
     {
-        game_mapping(7, 4300);
-        game_mapping(8, 8600);
+        clrtime = 64500;
+
+        game_mapping(7, 1500);
+        game_mapping(8, 5800);
         game_mapping(9, 12900);
         game_mapping(1, 17200);
         game_mapping(3, 21500);
@@ -465,9 +576,11 @@ public class GameActivity extends AppCompatActivity {
         game_mapping(3, 51600);
         game_mapping(9, 55900);
         game_mapping(5, 60200);
-        game_mapping(1, 64500);
+        game_mapping(1, clrtime);
 
-        game_time = 64500 + (interval_time * 5);
+
+
+        game_time = clrtime + (interval_time * 5);
         time_to_spin = game_time / 12;
         delay_1step = 720 / 12;
 
@@ -492,6 +605,11 @@ public class GameActivity extends AppCompatActivity {
         TimerTask task3 = new But_task3(quest_button);
         TimerTask task4 = new But_task4(quest_button);
         TimerTask task5 = new But_task5(quest_button);
+        TimerTask task6 = new But_task6(quest_button);
+        TimerTask task7 = new But_task7(quest_button);
+        TimerTask task8 = new But_task8(quest_button);
+        TimerTask task9 = new But_task9(quest_button);
+
 
 
         g.schedule(task1, delay_time);
@@ -499,6 +617,11 @@ public class GameActivity extends AppCompatActivity {
         g.schedule(task3, delay_time + interval_time * 2);
         g.schedule(task4, delay_time + interval_time * 3);
         g.schedule(task5, delay_time + interval_time * 4);
+        g.schedule(task6, delay_time + interval_time * 5);
+        g.schedule(task7, delay_time + interval_time * 6);
+        g.schedule(task8, delay_time + interval_time * 7);
+        g.schedule(task9, delay_time + interval_time * 8);
+
 
         return 0;
     }
@@ -512,6 +635,9 @@ public class GameActivity extends AppCompatActivity {
     public void game_over(int over_state){
         t.cancel();
         g.cancel();
+
+        // 추가필요 : 모터 돈만큼 뒤로 돌려야 함
+        SetMotorState(0, 0, 10);
 
         // sqlite db에 이름 점수 정보 추가
         insertRecord();
@@ -556,7 +682,8 @@ public class GameActivity extends AppCompatActivity {
             g_combo="0"+g_combo;
 
         ReceiveDotValue(dot_combo);
-        ReceiveTextLcdValue(Integer.toString(gamescore), " ");
+        game_score_string = "Score : " + Integer.toString(gamescore);
+        ReceiveTextLcdValue(game_score_string, " ");
         ReceiveFndValue(g_combo);
         view_gamescore.setText(Integer.toString(gamescore));
         view_gamecombo.setText(Integer.toString(gamecombo));

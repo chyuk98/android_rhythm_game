@@ -28,12 +28,12 @@
                 android:textStyle="bold" />
 
             <RadioButton
-                android:id="@+id/radioButton_nomal"
+                android:id="@+id/radioButton_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:fontFamily="@font/neodgm"
-                android:text="NOMAL"
+                android:text="NORMAL"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

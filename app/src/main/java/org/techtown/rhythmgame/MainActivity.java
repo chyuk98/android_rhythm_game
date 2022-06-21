@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         {
             difficulty_radio_fix[0] = R.id.radioButton_easy;
-            difficulty_radio_fix[1] = R.id.radioButton_nomal;
+            difficulty_radio_fix[1] = R.id.radioButton_normal;
             difficulty_radio_fix[2] = R.id.radioButton_hard;
         }
         difficulty = 0;
